@@ -19,8 +19,8 @@ public:
     string longestPalindrome(string s) {
         int n = s.size();
         string t = "";
-        if(n == 1) return s;
-        for(int i = 0 ; i < n-1 ; i++){
+        // if(n == 1) return s;
+        for(int i = 0 ; i < n ; i++){
             string odd = f(s , i , i);
             string even = f(s , i , i + 1);
             if(odd.size() > even.size() && t.size() < odd.size()){
