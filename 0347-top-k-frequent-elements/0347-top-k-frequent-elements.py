@@ -1,5 +1,5 @@
-class Solution(object):
-    def topKFrequent(self, nums, k):
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         n = len(nums)
         mp = {}
         for e in nums:
@@ -16,4 +16,3 @@ class Solution(object):
                     k -= 1
                     if k == 0:break
         return res
-        
