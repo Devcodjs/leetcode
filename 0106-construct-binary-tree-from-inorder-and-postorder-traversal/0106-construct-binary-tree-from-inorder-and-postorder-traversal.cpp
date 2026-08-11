@@ -17,7 +17,7 @@ public:
         int rootval = postorder[idx];
         idx -= 1;
         int pos  = mp[rootval];
-        TreeNode* root = new TreeNode(inorder[pos]);
+        TreeNode* root = new TreeNode(rootval);
         root->right = f(inorder , postorder ,pos + 1 , end, idx,  mp);
         root->left = f(inorder , postorder , start , pos - 1, idx , mp);
         return root;
