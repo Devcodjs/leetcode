@@ -12,7 +12,7 @@
 class Solution {
 public:
     void f(TreeNode* root, int& ans , int& k){
-        if(!root) return;
+        if(!root || k == 0) return;
         if(root->left) f(root->left , ans , k);
         k--;
         if(k == 0){
