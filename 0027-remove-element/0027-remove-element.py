@@ -1,5 +1,5 @@
-class Solution(object):
-    def removeElement(self, nums, val):
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
         n = len(nums)
         l , r = 0 , n - 1
         while l <= r :
@@ -9,4 +9,3 @@ class Solution(object):
             else:
                 l += 1
         return l
-        
