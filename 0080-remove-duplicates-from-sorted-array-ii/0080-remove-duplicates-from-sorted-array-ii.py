@@ -1,5 +1,5 @@
-class Solution(object):
-    def removeDuplicates(self, nums):
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
         n = len(nums)
         j = 0
         for i in range(0 , n):
