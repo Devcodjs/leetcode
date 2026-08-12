@@ -1,5 +1,5 @@
-class Solution(object):
-    def hIndex(self, c):
+class Solution:
+    def hIndex(self, c: List[int]) -> int:
         n = len(c)
         c.sort()
         ans = 0
