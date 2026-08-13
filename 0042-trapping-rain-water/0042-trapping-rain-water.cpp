@@ -14,7 +14,8 @@ public:
                 }
                 l++;
             }else{
-                if(rightM > nums[r]){
+                if(rightM >=
+                 nums[r]){
                     ans += rightM - nums[r];
                 }else{
                     rightM = nums[r];
