@@ -1,5 +1,5 @@
-class Solution(object):
-    def canCompleteCircuit(self, gas, cost):
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         n  , total , fuel , idx = len(gas) , 0 , 0 , 0
         for i in range(0 , n):
             diff = gas[i] - cost[i]
