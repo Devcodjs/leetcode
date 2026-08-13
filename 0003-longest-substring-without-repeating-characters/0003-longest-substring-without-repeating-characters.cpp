@@ -6,17 +6,15 @@ public:
         int l = 0 , r = 0;
         unordered_map<char , int> mp;
         while(r < n){
-            mp[s[r]]++;
-            if(s[r] > 1){
-                maxi = max(maxi , r - l );
-                while(mp[s[r]] > 1){
-                    mp[s[l]]--;
-                    l++;
+            if(mp.find(s[r]) != mp.end()){
+                if(mp[s[r]] >= l){
+                    l = mp[s[r]] + 1;
                 }
             }
+            maxi = max(maxi , r - l + 1);
+            mp[s[r]] = r;
             r++;
         }
-        maxi = max(maxi , r - l );
         return maxi;
     }
 };
