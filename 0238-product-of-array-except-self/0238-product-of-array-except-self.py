@@ -1,5 +1,5 @@
-class Solution(object):
-    def productExceptSelf(self, nums):
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
         n = len(nums)
         ans = [1] * n
         prod = nums[0]
@@ -12,5 +12,3 @@ class Solution(object):
             ans[i] = ans[i] * prod
             prod *= nums[i]
         return ans
-        
-        
