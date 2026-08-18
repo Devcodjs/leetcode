@@ -1,26 +1,48 @@
-class Solution {
+class DSU{
 public:
-    bool dfs(vector<vector<int>>& adj , vector<int>& vis , int curnode , int parent){
-        vis[curnode] = 1;
-        for(auto& e : adj[curnode]){
-            if(!vis[e]){
-                if(dfs(adj , vis , e , curnode)) return true;
-            }else if(e != parent) return true;
+    vector<int> par , rank;
+    DSU(int n){
+        par.resize(n + 1);
+        rank.resize(n + 1);
+
+        for(int i = 1; i<= n ;i++){
+            par[i] = i;
+            rank[i] = 0;
         }
-        return false;
     }
 
+    int findPar(int s){
+        if(par[s] == s) return s;
+        return par[s] = findPar(par[s]);
+    }
+
+    void unionP(int e , int f){
+        int ep = findPar(e);
+        int fp = findPar(f);
+
+        if(rank[ep] > rank[fp]){
+            par[fp] = ep;
+        }else if(rank[ep] < rank[fp]){
+            par[ep] = fp;
+        }else{
+            par[fp] = ep;
+            rank[ep]++;
+        }
+    }
+};
+
+class Solution {
+public:
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n = edges.size();
-        vector<vector< int>> adj(n + 1);
-        for(int i = 0; i < n ; i++){
-            int u = edges[i][0] , v = edges[i][1];
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-            vector<int> vis(n + 1 , 0);
-            if(dfs(adj , vis , u , -1)){
-                return edges[i];
+        DSU dsu(n);
+        for(auto &e : edges){
+            int u = e[0] , v = e[1];
+            int up = dsu.findPar(u) , vp = dsu.findPar(v);
+            if(up == vp){
+                return e;
             }
+            dsu.unionP(u , v);
         }
         return {};
     }
