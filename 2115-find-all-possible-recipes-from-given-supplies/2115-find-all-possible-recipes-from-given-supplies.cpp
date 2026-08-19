@@ -1,34 +1,33 @@
 class Solution {
 public:
     vector<string> findAllRecipes(vector<string>& rec, vector<vector<string>>& ing, vector<string>& sup) {
+        unordered_set<string> st(sup.begin() , sup.end());
+        unordered_map<string , vector<int>> adj;
         int n = rec.size();
-        int m = ing.size();
-        int t = sup.size();
-        unordered_map<string , int> mp;
-        for(auto s : sup){
-            mp[s]++;
-        }
-        set<string> ans;
-        vector<int>vis(n , 0);
+        vector<int> ind(n , 0);
         for(int i = 0 ; i < n ; i++){
-            for(int i = 0 ;i < n ; i++){
-                string s = rec[i];
-                vector<string> req = ing[i];
-                bool ok = true;
-                for(auto& t : req){
-                    if(mp.find(t) == mp.end()){
-                        ok = false;
-                        break;
-                    }
-                }
-                if(ok){
-                    vis[i] = 1;
-                    ans.insert(s);
-                    mp[s]++;
+            for(auto& s : ing[i]){
+                if(!st.count(s)){
+                    adj[s].push_back(i);
+                    ind[i]++;
                 }
             }
-        } 
-        vector<string> res (ans.begin() , ans.end());
-        return res;
+        }
+
+        queue<int> q;
+        for(int i = 0 ;i < n ; i++){
+            if(ind[i] == 0) q.push(i);
+        }
+        vector<string> ans;
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+            ans.push_back(rec[node]);
+            for(auto& e : adj[rec[node]]){
+                ind[e]--;
+                if(ind[e] == 0)q.push(e);
+            }
+        }
+        return ans;
     }
 };
