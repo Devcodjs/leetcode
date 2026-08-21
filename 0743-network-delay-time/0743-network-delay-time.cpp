@@ -6,19 +6,20 @@ public:
             int u = times[i][0] , v = times[i][1] , w = times[i][2];
             adj[u].push_back({v , w}); // node , time
         }
-        priority_queue<pair<int , int> , vector<pair<int , int>> , greater<pair<int , int>>> q;
+        queue<pair<int , int>> q;
         vector<int> dist(n + 1 , INT_MAX);
-        q.push({0 , k}); //  time  , node
+        int cnt = 0;
+        q.push({k , 0}); // node , time
         dist[k] = 0;
         while(!q.empty()){
-            auto[t, node] = q.top();
+            auto[node , t] = q.front();
             q.pop();
             if(dist[node] < t) continue;
             for(auto i : adj[node]){
                 auto[newr , newt] = i;
                 if( dist[newr] > t + newt){
                     dist[newr] = t + newt;
-                    q.push({ t + newt , newr});
+                    q.push({newr , t + newt});
                 }
             }
         }
