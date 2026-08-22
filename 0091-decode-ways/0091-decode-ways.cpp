@@ -18,22 +18,28 @@ public:
     }
     int numDecodings(string s) {
         int n = s.size();
-        vector<int> dp(n + 2 , 0);
-        dp[n] = 1;
-        dp[n + 1] = 1;
+        int next =  1; //dp[n] = 1;
+        int nNext = 1 ; //dp[n + 1] = 1;
         for(int i = n - 1 ; i >= 0 ; i--){
-            if(s[i] == '0') continue;
+            int cur = 0;
+            if(s[i] == '0') {
+                nNext = next;
+                next = cur;
+                continue;
+            }
             int take1 = 0 , take2 = 0;
             int sum = 0;
             if(i + 1 < n ){
                 sum += (s[i] - '0') * 10 + (s[i + 1] - '0');
             }
-            take1 = dp[i + 1];
+            take1 = next;
             if(sum > 9  && sum <= 26){
-                take2 = dp[i + 2];
+                take2 = nNext;
             }
-            dp[i] = take1 + take2;
+            cur = take1 + take2;
+            nNext = next;
+            next = cur;
         }
-        return dp[0];
+        return next;
     }
 };
