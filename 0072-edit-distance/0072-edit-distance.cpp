@@ -27,31 +27,31 @@ public:
     }
     int minDistance(string word1, string word2) {
         int n = word1.size(), m = word2.size();
-        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
-        for(int i = 0; i <= n ; i++){
-            dp[i][m] = n - i;
-        }
+        vector<int> cur(m + 1 , 0) , next(m + 1 , 0);
         for(int j = 0 ; j <= m ; j++){
-            dp[n][j] = m - j;
+            cur[j] = m - j;
+            next[j] = m - j;
         }
         for (int i = n - 1; i >= 0; i--) {
+            cur[m] = n - i;
             for (int j = m - 1; j >= 0; j--) {
                 int cnt1 = 0, cnt2 = 0, cnt3 = 0;
                 if (word1[i] == word2[j])
-                    dp[i][j] = dp[i+1][j+1];
+                    cur[j] = next[j+1];
                 else {
                     // replace the char..
-                    cnt1 = 1 + dp[i+1][j+1];
+                    cnt1 = 1 + next[j+1];
 
                     // delete the char...
-                    cnt2 = 1 + dp[i+1][j];
+                    cnt2 = 1 +  next[j];
 
                     // add the char....
-                    cnt3 = 1 + dp[i][j+1];
-                    dp[i][j] = min({cnt1, cnt2, cnt3});
+                    cnt3 = 1 + cur[j+1];
+                    cur[j] = min({cnt1, cnt2, cnt3});
                 }
             }
+            next = cur;
         }
-        return dp[0][0];
+        return cur[0];
     }
 };
