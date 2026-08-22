@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int f(vector<vector<int>>& dp , string s1 , string s2 , string s3 , int i , int j){
+        int n = s1.size() , m = s2.size() ;
+        if(i == n && j == m) return true;
+        if(dp[i][j] != -1) return dp[i][j];
+        bool take = false, notTake = false;
+        int k = i + j;
+        if(i < n && s1[i] == s3[k]){
+            take = f(dp , s1, s2 ,s3 , i + 1 , j);
+        }
+        if(j < m && s2[j] == s3[k]){
+            notTake = f(dp , s1, s2 , s3 , i , j + 1);
+        }
+        return dp[i][j] = take || notTake;
+    }
+    bool isInterleave(string s1, string s2, string s3) {
+        int n = s1.size() , m = s2.size() , t = s3.size();
+        if(n + m != t) return false;
+        vector<vector<int>> dp(n + 1 , vector<int>(m + 1, -1));
+        return f(dp , s1 , s2 , s3 , 0 , 0);
+    }
+};
