@@ -12,13 +12,16 @@ class Solution {
 
     public int rob(int[] nums) {
         int n = nums.length;
-        int[] dp = new int[n + 2];
+        int next = 0 , nNext = 0;
         for (int i = n - 1; i >= 0; i--) {
-            int take = nums[i] + dp[i + 2];
-            int notTake = dp[i + 1];
-            dp[i] = Math.max(take, notTake);
+            int cur = 0;
+            int take = nums[i] + nNext;
+            int notTake = next;
+            cur = Math.max(take, notTake);
+            nNext = next;
+            next = cur;
         }
 
-        return dp[0];
+        return next;
     }
 }
