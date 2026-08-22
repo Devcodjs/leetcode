@@ -11,21 +11,22 @@
  */
 class Solution {
 public:
-    int f(TreeNode* node, bool canRob,map<pair<TreeNode*,bool>,int>& mp){
-        if(!node) return 0;
-        if(mp.count({node,canRob})) return mp[{node,canRob}];
-        int take = 0;
-        if(canRob){
-            take = node->val + f(node->left,false,mp) + f(node->right,false,mp);
+    int f(TreeNode* root , unordered_map<TreeNode* , int>& mp){
+        if(!root) return 0;
+        if(mp.find(root) != mp.end()) return mp[root];
+        int take = root->val;
+        if(root->left){
+            take += f(root->left->left , mp) + f(root->left->right, mp);
         }
-        int notTake = f(node->left,true,mp) + f(node->right,true,mp);
-        return mp[{node,canRob}]=max(take,notTake);
+        if(root->right){
+            take += f(root->right->left, mp) + f(root->right->right,mp);
+        }
+        int notTake = f(root->left , mp) + f(root->right , mp);
+        return mp[root] = max(take , notTake);
     }
     int rob(TreeNode* root) {
-    map<pair<TreeNode*,bool>,int> mp;
-
         if(!root) return 0;
-
-        return f(root,true,mp);
+        unordered_map<TreeNode* , int> mp;
+        return f(root , mp);
     }
 };
