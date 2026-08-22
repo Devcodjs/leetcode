@@ -9,10 +9,22 @@ public:
     }
     int rob(vector<int>& nums) {
         int n = nums.size();
-        vector<int> dp1(n   , -1) , dp2(n  , -1);
+        vector<int> dp1(n+2  , 0) , dp2(n + 2 , 0);
         if(n == 1) return nums[0];
-        int maxi1 = f(dp1 , nums , 1 , n - 1);
-        int maxi2 = f(dp2 , nums  , 0 , n - 2);
-        return max(maxi1 , maxi2);
+        int maxi = 0;
+        for(int i = n - 1 ; i >= 1 ; i--){
+            int take = nums[i] + dp1[i + 2];
+            int notTake = dp1[i + 1];
+            dp1[i] = max(take , notTake);
+        }
+        maxi = max(maxi , dp1[1]);
+        int maxi2 = 0;
+        for(int i = n - 2 ; i >= 0 ; i--){
+            int take = nums[i] + dp2[i + 2];
+            int notTake = dp2[i + 1];
+            dp2[i] = max(take , notTake);
+        }
+        maxi2 = max(maxi2 , dp2[0]);
+        return max(maxi , maxi2);
     }
 };
