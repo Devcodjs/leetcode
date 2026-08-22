@@ -15,20 +15,21 @@ public:
     }
     int maxProfit(vector<int>& nums) {
         int n = nums.size();
-        vector<vector<int>> dp(n + 1 , vector<int>(2 , 0));  
+        vector<int> cur(n + 1, 0) , next(n + 1 , 0);
         for(int i = n - 1; i >= 0 ; i--){
             for(int j = 0 ; j < 2 ; j++){
                 int take = 0;
                 if(j == 0){
-                    take = max(-nums[i] + dp[i + 1][1] , dp[i + 1][0]);
+                    take = max(-nums[i] + next[1] , next[0]);
                 }else{
-                    take = max(nums[i] + dp[i+1][0] , dp[i + 1][1]);
+                    take = max(nums[i] + next[0] , next[1]);
                 }
-                int notTake = dp[i + 1][j];
-                dp[i][j] = max(take , notTake);
+                int notTake = next[j];
+                cur[j] = max(take , notTake);
             }
+            next = cur;
         }
      
-        return dp[0][0];
+        return cur[0];
     }
 };
