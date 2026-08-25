@@ -12,7 +12,6 @@ public:
             if(rem < 0) rem += k;
             cnt += mp[rem];
             mp[rem]++;
-
         }
         return cnt;
     }
