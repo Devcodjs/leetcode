@@ -1,5 +1,5 @@
-class Solution(object):
-    def reverseDegree(self, s):
+class Solution:
+    def reverseDegree(self, s: str) -> int:
         n = len(s)
         sumi = 0
         for i in range(n):
