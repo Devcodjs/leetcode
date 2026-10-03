@@ -1,5 +1,5 @@
-class Solution(object):
-    def lastRemaining(self, n):
+class Solution:
+    def lastRemaining(self, n: int) -> int:
         step , pos , isSt = 1 , 1 , True
         while n > 1 :
             if isSt or n % 2 == 1:
@@ -8,5 +8,3 @@ class Solution(object):
             step *= 2
             isSt = not isSt
         return pos
-
-        
