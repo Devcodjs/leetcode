@@ -8,10 +8,10 @@ public:
             if(nums[i] != ele){
                 cnt--;
             }
-            if(nums[i] == ele) cnt++;
+            else if(nums[i] == ele) cnt++;
             if(cnt == 0){
-                ele = nums[i];
                 cnt = 1;
+                ele = nums[i];
             }
         }
         return ele;
