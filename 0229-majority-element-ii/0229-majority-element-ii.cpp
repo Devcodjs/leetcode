@@ -24,7 +24,7 @@ public:
         }
         vector<int> ans;
         if(c1 > floor(n / 3)) ans.push_back(ele1);
-        if(c2 > floor(n / 3) && ele1 != ele2) ans.push_back(ele2);
+        if(c2 > floor(n / 3) && ele1 != ele2 ) ans.push_back(ele2);
         return ans;
     }
 };
