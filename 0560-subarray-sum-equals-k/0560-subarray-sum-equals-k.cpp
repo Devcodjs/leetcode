@@ -5,14 +5,14 @@ public:
         int ans = 0;
         unordered_map<int , int> mp;
         mp[0] = 1;
-        int prefs = 0;
+        int pref = 0;
         for(int i =  0 ; i < n ; i++){
-            prefs += nums[i];
-            int diff = prefs - k;
-            if(mp.find(diff) != mp.end()){
-                ans += mp[diff];
+            pref += nums[i];
+            int d = pref - k;
+            if(mp.find(d) != mp.end()){
+                ans += mp[d];
             }
-            mp[prefs]++;
+            mp[pref]++;
         }
         return ans; 
     }
